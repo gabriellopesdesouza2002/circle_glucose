@@ -99,13 +99,45 @@ if not escolha_periodo.isnumeric():
 else:
     escolha_periodo = int(escolha_periodo)
 
-if escolha_periodo == 1:
-    glicemia_list1.append(glicemia)
-    print('Glicemia adicionada com sucesso!\n')
-    print('Você pode ver ')
-else:
-    while not escolha_periodo == 1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9:
-        print('Opção inválida tente novamente!')
+while True:
+    if escolha_periodo == 1:
+        glicemia_list1.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Ao levantar"')
+    elif escolha_periodo == 2:
+        glicemia_list2.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Antes do almoço"')
+    elif escolha_periodo == 3:
+        glicemia_list3.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Depois do almoço"')
+    elif escolha_periodo == 4:
+        glicemia_list4.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Antes do lanche"')
+    elif escolha_periodo == 5:
+        glicemia_list5.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Depois do lanche"')
+    elif escolha_periodo == 6:
+        glicemia_list6.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Antes do jantar"')
+    elif escolha_periodo == 7:
+        glicemia_list7.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Depois do jantar"')
+    elif escolha_periodo == 8:
+        glicemia_list8.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Ao dormir"')
+    elif escolha_periodo == 9:
+        glicemia_list9.append(glicemia)
+        print('Glicemia adicionada com sucesso!\n')
+        print('Como periodo "Sem periodo especificado"')
+    else:
+        print('Erro! Tente novamente!')
         escolha_periodo = input('Coloque o período da medição.\n'
                                 'Ao levantar ➜ 1\n'
                                 'Antes do almoço ➜ 2\n'
@@ -117,3 +149,10 @@ else:
                                 'Ao dormir ➜ 8\n'
                                 'Sem Período especificado ➜ 9\n'
                                 '>>> ')
+
+
+
+        """
+        Parei onde ao adicionar o periodo, entra em um loop infinito de adição na lista do periodo escolhido. deve-se 
+        colocar break's para que na hora de adicionar, já quebre o loop
+        """
