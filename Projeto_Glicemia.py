@@ -104,6 +104,22 @@ while True:
         glicemia_list1.append(glicemia)
         print('Glicemia adicionada com sucesso!\n')
         print('Como periodo "Ao levantar"')
+        sair = input('Você quer sair ou adicionar mais uma glicemia?\n'
+                     'SAIR ➜ 1\n'
+                     'ADICIONAR MAIS DADOS ➜ 2'
+                     '>>> ')
+        if sair != '1' or sair != '2':
+            while sair != '1' or sair != '2':
+                print('Não foi possível entender, tente novamente.')
+                sair = input('Você quer sair ou adicionar mais uma glicemia?\n'
+                             'SAIR ➜ 1\n'
+                             'ADICIONAR MAIS DADOS ➜ 2'
+                             '>>> ')
+                if sair == '1' or sair == '2':
+                    break
+        elif sair == '1':
+            break
+
     elif escolha_periodo == 2:
         glicemia_list2.append(glicemia)
         print('Glicemia adicionada com sucesso!\n')
