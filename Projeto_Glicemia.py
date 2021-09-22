@@ -33,10 +33,20 @@ def inicio():
 
 
 def fazerLogin():
+    print('Para sair, digite "q" a qualquer momento ou "r" para recomeçar')
     email = input('Coloque seu e-mail: ')
+    if email == 'q' or email == 'Q':
+        print('Tudo bem! Muito obrigado!')
+        exit()
+    elif email == 'r' or email == 'R':
+        fazerLogin()
     senha = input('Agora sua senha: ')
-
-    if email in emails and senha in senhas:
+    if senha == 'q' and senha == 'Q':
+        print('Tudo bem! Muito obrigado!')
+        exit()
+    elif senha == 'r' or senha == 'R':
+        fazerLogin()
+    elif email in emails and senha in senhas:
         print('\n\033[1;92mParabéns! logado com sucesso!\033[m\n')
         glicemiaApp()
     else:
