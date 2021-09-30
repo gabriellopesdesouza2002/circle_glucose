@@ -1,8 +1,10 @@
 from time import sleep, gmtime, strftime
 from matplotlib import pyplot
 import getpass
-emails = ['gab@.com', 'gab']
+emails = ['gab']
 senhas = ['123']
+
+# Dados das glicemias e Dados dos horários para serem colocados no gráfico.
 glicemias_01 = []
 glicemias_01_hora = []
 glicemias_02 = []
@@ -21,6 +23,7 @@ glicemias_08 = []
 glicemias_08_hora = []
 glicemias_09 = []
 glicemias_09_hora = []
+# Dados das glicemias e Dados dos horários para serem colocados no gráfico.
 
 
 def fechaApp():
@@ -28,38 +31,38 @@ def fechaApp():
     exit()
 
 
-def inicio():
+def inicio():  # Função que inicia o aplicativo
     pergunta = input('\n\033[1;92mOlá bem vindo ao sistema de controle de glicemia!\033[m\n\n'
                      'Faça login >>> 1\n'
                      'Faça um cadastro >>> 2\n'
-                     'Sair do aplicativo >>> 3\n'
+                     'Sair >>> 3\n'
                      '>>> ')
-    if pergunta == '1':
-        fazerLogin()
-    elif pergunta == '2':
+    if pergunta == '1':  # verifica se é login e vai pra função Login
+        Login()
+    elif pergunta == '2':  # verifica se é cadastro
         fazerCadastro()
-    elif pergunta == '3':
+    elif pergunta == '3':  # verifica se fecha
         fechaApp()
-    else:
+    else:  # se tudo falso, tenta novamente
         print('\033[1;31mTente novamente!\033[m')
         inicio()
 
 
-def fazerLogin():
+def Login():
     print('\033[1;32mBem vindo a área de Login!\033[m')
-    print('Para sair, digite "q" a qualquer momento ou "r" para recomeçar ou "v" para voltar ao menu anterior')
+    print('Digite "q" para sair, "r" para reiniciar ou "v" para voltar ao menu anterior')
     email = input('Coloque seu e-mail: ')
     if email == 'q' or email == 'Q':
         fechaApp()
     elif email == 'r' or email == 'R':
-        fazerLogin()
+        Login()
     elif email == 'v' or email == 'V':
         inicio()
     senha = getpass.getpass('Digite sua senha (Não será mostrada!): ')
     if senha == 'q' and senha == 'Q':
         fechaApp()
     elif senha == 'r' or senha == 'R':
-        fazerLogin()
+        Login()
     elif senha == 'v' or senha == 'V':
         inicio()
     elif email in emails and senha in senhas:
@@ -67,58 +70,63 @@ def fazerLogin():
         glicemiaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
-        fazerLogin()
+        Login()
 
 
 def fazerCadastro():
     print('\033[1;32mBem vindo a área de cadastro!\033[m\n')
-    print('Caso queira sair digite "q", "r" para reiniciar ou "l" para ir ao login')
+    print('Digite "q" para sair, "r" para reiniciar ou "v" para voltar ao menu anterior')
+
     email_novo = input('Digite o novo e-mail: ')
+
     if email_novo == 'q' or email_novo == 'Q':
         fechaApp()
     elif email_novo == 'r' or email_novo == 'R':
         fazerCadastro()
-    elif email_novo == 'l' or email_novo == 'L':
-        fazerLogin()
-    elif not email_novo in '@' and '.com':
-        print('\033[1;31mSeu E-mail não está correto!\033[m')
-        fazerCadastro()
+    elif email_novo == 'v' or email_novo == 'V':
+        inicio()
+    
+
     senha_novo = input('Digite a sua senha: ')
+
     if senha_novo == 'q' or senha_novo == 'Q':
         fechaApp()
     elif senha_novo == 'r' or senha_novo == 'R':
         fazerCadastro()
-    elif senha_novo == 'l' or senha_novo == 'L':
-        fazerLogin()
+    elif senha_novo == 'v' or senha_novo == 'V':
+        inicio()
+
     senha_novo_verificada = input('Digite a mesma senha: ')
+
     if senha_novo_verificada == 'q' or senha_novo_verificada == 'Q':
         fechaApp()
     elif senha_novo_verificada == 'r' or senha_novo_verificada == 'R':
         fazerCadastro()
-    elif senha_novo_verificada == 'l' or senha_novo_verificada == 'L':
-        fazerLogin()
+    elif senha_novo_verificada == 'v' or senha_novo_verificada == 'V':
+        inicio()
 
     if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
         if email_novo in emails:
-            print('O email já existe no nosso banco de dados! Tente novamente.')
+            print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
             fazerCadastro()
         else:
             emails.append(email_novo)
             senhas.append(senha_novo_verificada)
             print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
             print('\033[1;32mFaça Login agora!\033[m')
-            fazerLogin()
+            Login()
     else:
         print('\033[1;31mTente novamente!\033[m\n')
         fazerCadastro()
 
 
 def glicemiaApp():
-    pergunta = input('O que você quer fazer?\n'
+    pergunta = input('O que você quer fazer?\n\n'
                      'Adicionar um novo valor >>> 1\n'
                      'Ver suas medidas >>> 2\n'
                      'Ver um gráfico com as medidas >> 3\n'
-                     'Sair do aplicativo >>> 4\n'
+                     'Voltar ao menu anterior (Login / Cadastro) >>> 4\n'
+                     'Sair >>> 5\n'
                      '>>> ')
 
     if pergunta == '1':
@@ -128,6 +136,8 @@ def glicemiaApp():
     elif pergunta == '3':
         verGrafico()
     elif pergunta == '4':
+        inicio()
+    elif pergunta == '5':
         fechaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
@@ -140,9 +150,9 @@ def addGlicemia():
     if adicionar_glicemia == 'q' or adicionar_glicemia == 'Q':
         fechaApp()
     elif adicionar_glicemia == 'r' or adicionar_glicemia == 'R':
-        fazerCadastro()
-    elif adicionar_glicemia == 'l' or adicionar_glicemia == 'L':
-        fazerLogin()
+        addGlicemia()
+    elif adicionar_glicemia == 'v' or adicionar_glicemia == 'V':
+        inicio()
     periodo = input('Qual periodo foi feito a medição?\n'
                     'Ao levantar ➜ 1\n'
                     'Antes do almoço ➜ 2\n'
@@ -157,9 +167,9 @@ def addGlicemia():
     if periodo == 'q' or periodo == 'Q':
         fechaApp()
     elif periodo == 'r' or periodo == 'R':
-        fazerCadastro()
+        addGlicemia()
     elif periodo == 'l' or periodo == 'L':
-        fazerLogin()
+        inicio()
 
     if adicionar_glicemia.isnumeric():
         adicionar_glicemia = int(adicionar_glicemia)
@@ -238,7 +248,7 @@ def verMedidas():
                     'Depois do jantar ➜ 7\n'
                     'Ao dormir ➜ 8\n'
                     'Sem Período Especificado ➜ 9\n'
-                    'Sair totalmente do aplicativo ➜ "q"\n'
+                    'Sair ➜ "q"\n'
                     'Reiniciar esse menu ➜ "r"\n'
                     'Voltar ao menu anterior ➜ "v"\n'
                     '>>> ')
@@ -363,7 +373,9 @@ def verGrafico():
                     'Depois do jantar ➜ 7\n'
                     'Ao dormir ➜ 8\n'
                     'Sem Período Especificado ➜ 9\n'
-                    'Todos os períodos'
+                    'Sair ➜ "q"\n'
+                    'Reiniciar esse menu ➜ "r"\n'
+                    'Voltar ao menu anterior ➜ "v"\n'
                     '>>> ')
 
     if escolha == '1':
@@ -456,6 +468,12 @@ def verGrafico():
             pyplot.plot(glicemias_09)
             pyplot.show()
             glicemiaApp()
+    if escolha == 'q' or escolha == 'Q':
+        fechaApp()
+    elif escolha == 'r' or escolha == 'R':
+        verGrafico()
+    elif escolha == 'v' or escolha == 'V':
+        glicemiaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
         verGrafico()
