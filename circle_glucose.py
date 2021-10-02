@@ -34,7 +34,7 @@ def Login():
         Login()
     elif email == 'v' or email == 'V':
         inicio()
-    senha = input('Digite sua senha (Não será mostrada!): ')
+    senha = input('Digite sua senha: ')
     if senha == 'q' and senha == 'Q':
         fechaApp()
     elif senha == 'r' or senha == 'R':
