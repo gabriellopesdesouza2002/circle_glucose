@@ -2,6 +2,7 @@ from time import sleep, gmtime, strftime
 from matplotlib import pyplot
 import dados  # impota as listas simulando um db
 
+
 def fechaApp():
     print('Tudo bem! Muito obrigado!')
     exit()
@@ -452,5 +453,6 @@ def verGrafico():
     else:
         print('\033[1;31mTente novamente!\033[m')
         verGrafico()  # Caso todas as verificações sejam falsas, o usuário digitou algo que não é válido!
+
 
 inicio()
