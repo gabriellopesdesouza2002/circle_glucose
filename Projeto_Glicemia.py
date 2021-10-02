@@ -1,30 +1,6 @@
 from time import sleep, gmtime, strftime
 from matplotlib import pyplot
-import getpass
-emails = ['gab']
-senhas = ['123']
-
-# Dados das glicemias e Dados dos horários para serem colocados no gráfico.
-glicemias_01 = []
-glicemias_01_hora = []
-glicemias_02 = []
-glicemias_02_hora = []
-glicemias_03 = []
-glicemias_03_hora = []
-glicemias_04 = []
-glicemias_04_hora = []
-glicemias_05 = []
-glicemias_05_hora = []
-glicemias_06 = []
-glicemias_06_hora = []
-glicemias_07 = []
-glicemias_07_hora = []
-glicemias_08 = []
-glicemias_08_hora = []
-glicemias_09 = []
-glicemias_09_hora = []
-# Dados das glicemias e Dados dos horários para serem colocados no gráfico.
-
+import dados  # impota as listas simulando um db
 
 def fechaApp():
     print('Tudo bem! Muito obrigado!')
@@ -58,14 +34,14 @@ def Login():
         Login()
     elif email == 'v' or email == 'V':
         inicio()
-    senha = getpass.getpass('Digite sua senha (Não será mostrada!): ')
+    senha = input('Digite sua senha (Não será mostrada!): ')
     if senha == 'q' and senha == 'Q':
         fechaApp()
     elif senha == 'r' or senha == 'R':
         Login()
     elif senha == 'v' or senha == 'V':
         inicio()
-    elif email in emails and senha in senhas:
+    elif email in dados.emails and senha in dados.senhas:
         print('\n\033[1;92mParabéns! logado com sucesso!\033[m\n')
         glicemiaApp()
     else:
@@ -85,7 +61,6 @@ def fazerCadastro():
         fazerCadastro()
     elif email_novo == 'v' or email_novo == 'V':
         inicio()
-    
 
     senha_novo = input('Digite a sua senha: ')
 
@@ -106,12 +81,12 @@ def fazerCadastro():
         inicio()
 
     if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
-        if email_novo in emails:
+        if email_novo in dados.emails:
             print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
             fazerCadastro()
         else:
-            emails.append(email_novo)
-            senhas.append(senha_novo_verificada)
+            dados.emails.append(email_novo)
+            dados.senhas.append(senha_novo_verificada)
             print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
             print('\033[1;32mFaça Login agora!\033[m')
             Login()
@@ -177,56 +152,56 @@ def addGlicemia():
             if periodo == '1':
                 print('Você escolheu "Ao levantar"')
                 sleep(1)
-                glicemias_01.append(adicionar_glicemia)
-                glicemias_01_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_01.append(adicionar_glicemia)
+                dados.glicemias_01_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '2':
                 print('Você escolheu "Antes do almoço"')
                 sleep(1)
-                glicemias_02.append(adicionar_glicemia)
-                glicemias_02_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_02.append(adicionar_glicemia)
+                dados.glicemias_02_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '3':
                 print('Você escolheu "Depois do almoço"')
                 sleep(1)
-                glicemias_03.append(adicionar_glicemia)
-                glicemias_03_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_03.append(adicionar_glicemia)
+                dados.glicemias_03_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '4':
                 print('Você escolheu "Antes do lanche"')
                 sleep(1)
-                glicemias_04.append(adicionar_glicemia)
-                glicemias_04_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_04.append(adicionar_glicemia)
+                dados.glicemias_04_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '5':
                 print('Você escolheu "Depois do lanche"')
                 sleep(1)
-                glicemias_05.append(adicionar_glicemia)
-                glicemias_05_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_05.append(adicionar_glicemia)
+                dados.glicemias_05_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '6':
                 print('Você escolheu "Antes do jantar"')
                 sleep(1)
-                glicemias_06.append(adicionar_glicemia)
-                glicemias_06_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_06.append(adicionar_glicemia)
+                dados.glicemias_06_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '7':
                 print('Você escolheu "Depois do jantar"')
                 sleep(1)
-                glicemias_07.append(adicionar_glicemia)
-                glicemias_07_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_07.append(adicionar_glicemia)
+                dados.glicemias_07_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '8':
                 print('Você escolheu "Ao dormir"')
                 sleep(1)
-                glicemias_08.append(adicionar_glicemia)
-                glicemias_08_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_08.append(adicionar_glicemia)
+                dados.glicemias_08_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
             elif periodo == '9':
                 print('Você escolheu "Sem Período Especificado"')
                 sleep(1)
-                glicemias_09.append(adicionar_glicemia)
-                glicemias_09_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                dados.glicemias_09.append(adicionar_glicemia)
+                dados.glicemias_09_hora.append(strftime("%d | %H:%M:%S", gmtime()))
                 glicemiaApp()
         else:
             print(f'\033[1;31mO valor: {adicionar_glicemia} é inválido. Tente novamente!\033[m')
@@ -255,99 +230,99 @@ def verMedidas():
     if escolha == '1':
         print(f'Mostrando glicemias do período: "Ao levantar"')
         sleep(1)
-        if not glicemias_01:
+        if not dados.glicemias_01:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_01:
+            for glicemia in dados.glicemias_01:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '2':
         print(f'Mostrando glicemias do período: "Antes do almoço"')
         sleep(1)
-        if not glicemias_02:
+        if not dados.glicemias_02:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_02:
+            for glicemia in dados.glicemias_02:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '3':
         print(f'Mostrando glicemias do período: "Depois do almoço"')
         sleep(1)
-        if not glicemias_03:
+        if not dados.glicemias_03:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_03:
+            for glicemia in dados.glicemias_03:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '4':
         print(f'Mostrando glicemias do período: "Antes do lanche"')
         sleep(1)
-        if not glicemias_04:
+        if not dados.glicemias_04:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_04:
+            for glicemia in dados.glicemias_04:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '5':
         print(f'Mostrando glicemias do período: "Depois do lanche"')
         sleep(1)
-        if not glicemias_05:
+        if not dados.glicemias_05:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_05:
+            for glicemia in dados.glicemias_05:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '6':
         print(f'Mostrando glicemias do período: "Antes do jantar"')
         sleep(1)
-        if not glicemias_06:
+        if not dados.glicemias_06:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_06:
+            for glicemia in dados.glicemias_06:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '7':
         print(f'Mostrando glicemias do período: "Depois do jantar"')
         sleep(1)
-        if not glicemias_07:
+        if not dados.glicemias_07:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_07:
+            for glicemia in dados.glicemias_07:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '8':
         print(f'Mostrando glicemias do período: "Ao dormir"')
         sleep(1)
-        if not glicemias_08:
+        if not dados.glicemias_08:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_08:
+            for glicemia in dados.glicemias_08:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
     elif escolha == '9':
         print(f'Mostrando glicemias do período: "Sem período especificado"')
         sleep(1)
-        if not glicemias_09:
+        if not dados.glicemias_09:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             glicemiaApp()
         else:
-            for glicemia in glicemias_09:
+            for glicemia in dados.glicemias_09:
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
@@ -380,103 +355,102 @@ def verGrafico():
 
     if escolha == '1':
         print('Mostrando Gráfico de: Ao levantar.')
-        if not glicemias_01:  # Aqui vê se a lista está vazia
+        if not dados.glicemias_01:  # Aqui vê se a lista está vazia
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()  # Volta para a função verGrafico()
         else:
-            pyplot.plot(glicemias_01_hora, glicemias_01)  # Seleciona a lista com os dados
+            pyplot.plot(dados.glicemias_01_hora, dados.glicemias_01)  # Seleciona a lista com os dados
             pyplot.show()  # Mostra o gráfico.
             glicemiaApp()  # Quando acabar de mostrar o gráfico, volta ao menu inicial
-    elif escolha == '2':
+    elif escolha == '2':  # O mesmo processo até o if escolha == 'q' or escolha == 'Q'
         print('Mostrando Gráfico de: Antes do almoço.')
-        if not glicemias_02:
+        if not dados.glicemias_02:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_02)
+            pyplot.plot(dados.glicemias_02)
             pyplot.show()
             glicemiaApp()
     elif escolha == '3':
         print('Mostrando Gráfico de: Depois do almoço.')
-        if not glicemias_03:
+        if not dados.glicemias_03:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_03)
+            pyplot.plot(dados.glicemias_03)
             pyplot.show()
             glicemiaApp()
     elif escolha == '4':
         print('Mostrando Gráfico de: Antes do lanche.')
-        if not glicemias_04:
+        if not dados.glicemias_04:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_04)
+            pyplot.plot(dados.glicemias_04)
             pyplot.show()
             glicemiaApp()
     elif escolha == '5':
         print('Mostrando Gráfico de: Depois do lanche.')
-        if not glicemias_05:
+        if not dados.glicemias_05:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_05)
+            pyplot.plot(dados.glicemias_05)
             pyplot.show()
             glicemiaApp()
     elif escolha == '6':
         print('Mostrando Gráfico de: Antes do jantar.')
-        if not glicemias_06:
+        if not dados.glicemias_06:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_06)
+            pyplot.plot(dados.glicemias_06)
             pyplot.show()
             glicemiaApp()
     elif escolha == '7':
         print('Mostrando Gráfico de: Depois do jantar.')
-        if not glicemias_07:
+        if not dados.glicemias_07:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_07)
+            pyplot.plot(dados.glicemias_07)
             pyplot.show()
             glicemiaApp()
     elif escolha == '8':
         print('Mostrando Gráfico de: Ao dormir.')
-        if not glicemias_08:
+        if not dados.glicemias_08:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_08)
+            pyplot.plot(dados.glicemias_08)
             pyplot.show()
             glicemiaApp()
     elif escolha == '9':
         print('Mostrando Gráfico de: Sem período especificado.')
-        if not glicemias_09:
+        if not dados.glicemias_09:
             print('\033[1;31mNão há valores ainda aqui!\033[m')
             sleep(2)
             verGrafico()
         else:
-            pyplot.plot(glicemias_09)
+            pyplot.plot(dados.glicemias_09)
             pyplot.show()
             glicemiaApp()
     if escolha == 'q' or escolha == 'Q':
-        fechaApp()
+        fechaApp()  # Caso escolha seja "q" ou "Q" sairá do programa
     elif escolha == 'r' or escolha == 'R':
-        verGrafico()
+        verGrafico()  # Caso escolha seja "r" ou "R" reiniciará a função do zero
     elif escolha == 'v' or escolha == 'V':
-        glicemiaApp()
+        glicemiaApp()  # Caso escolha seja "v" ou "V" volatará um menu (função) anterior
     else:
         print('\033[1;31mTente novamente!\033[m')
-        verGrafico()
-
+        verGrafico()  # Caso todas as verificações sejam falsas, o usuário digitou algo que não é válido!
 
 inicio()
