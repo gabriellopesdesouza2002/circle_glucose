@@ -1,6 +1,10 @@
 from time import sleep, gmtime, strftime
+
 from matplotlib import pyplot
+
 import dados  # impota as listas simulando um db
+
+import configuracoes_avancadas
 
 
 def fechaApp():
@@ -9,24 +13,27 @@ def fechaApp():
 
 
 def inicio():  # Função que inicia o aplicativo
-    pergunta = input('\n\033[1;92mOlá bem vindo ao sistema de controle de glicemia!\033[m\n\n'
-                     'Faça login >>> 1\n'
-                     'Faça um cadastro >>> 2\n'
+    pergunta = input('\n\033[1;92mOlá Bem Vindo ao Circle Glucose!\nSeu Assistente de Glicemia!\033[m\n\n'
+                     'Faça Login >>> 1\n'
+                     'Faça Seu Cadastro >>> 2\n'
                      'Sair >>> 3\n'
                      '>>> ')
-    if pergunta == '1':  # verifica se é login e vai pra função Login
+    if pergunta == '1':  # Verifica se é login e vai pra função Login
         Login()
-    elif pergunta == '2':  # verifica se é cadastro
+    elif pergunta == '2':  # Verifica se é cadastro
         fazerCadastro()
-    elif pergunta == '3':  # verifica se fecha
+    elif pergunta == '3':  # Verifica se usuário quer fechar software
         fechaApp()
-    else:  # se tudo falso, tenta novamente
+    else:  # Se tudo falso, tenta novamente
         print('\033[1;31mTente novamente!\033[m')
         inicio()
 
 
-def Login():
+def Login():  # Função para fazer Login
+    print("\033[1;32m=\033[m" * 30)
     print('\033[1;32mBem vindo a área de Login!\033[m')
+    print("\033[1;32m=\033[m" * 30, '\n')
+
     print('Digite "q" para sair, "r" para reiniciar ou "v" para voltar ao menu anterior')
     email = input('Coloque seu e-mail: ')
     if email == 'q' or email == 'Q':
@@ -102,7 +109,8 @@ def glicemiaApp():
                      'Ver suas medidas >>> 2\n'
                      'Ver um gráfico com as medidas >> 3\n'
                      'Voltar ao menu anterior (Login / Cadastro) >>> 4\n'
-                     'Sair >>> 5\n'
+                     'Configurações avançadas >>> 5\n'
+                     'Sair >>> 6\n'
                      '>>> ')
 
     if pergunta == '1':
@@ -114,6 +122,11 @@ def glicemiaApp():
     elif pergunta == '4':
         inicio()
     elif pergunta == '5':
+        print("\033[1;32m=\033[m" * 30)
+        print('\033[1;32mBem Vindo(a) as Configurações Avançadas\033[m')
+        print("\033[1;32m=\033[m" * 30, '\n')
+        configuracoes_avancadas.configsAvanc()
+    elif pergunta == '6':
         fechaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
@@ -453,6 +466,9 @@ def verGrafico():
     else:
         print('\033[1;31mTente novamente!\033[m')
         verGrafico()  # Caso todas as verificações sejam falsas, o usuário digitou algo que não é válido!
+
+
+
 
 
 inicio()
