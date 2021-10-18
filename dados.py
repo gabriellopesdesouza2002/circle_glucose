@@ -1,5 +1,5 @@
-emails = ['gab']
-senhas = ['123']
+emails = ['gablop6543@gmail.com']
+senhas = ['bolarede792']
 
 # Dados das glicemias e Dados dos horários para serem colocados no gráfico.
 glicemias_01 = []

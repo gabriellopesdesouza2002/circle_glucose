@@ -4,8 +4,6 @@ from matplotlib import pyplot
 
 import dados  # impota as listas simulando um db
 
-import configuracoes_avancadas
-
 
 def fechaApp():
     print('Tudo bem! Muito obrigado!')
@@ -19,7 +17,7 @@ def inicio():  # Função que inicia o aplicativo
                      'Sair >>> 3\n'
                      '>>> ')
     if pergunta == '1':  # Verifica se é login e vai pra função Login
-        Login()
+        login()
     elif pergunta == '2':  # Verifica se é cadastro
         fazerCadastro()
     elif pergunta == '3':  # Verifica se usuário quer fechar software
@@ -29,7 +27,7 @@ def inicio():  # Função que inicia o aplicativo
         inicio()
 
 
-def Login():  # Função para fazer Login
+def login():  # Função para fazer login
     print("\033[1;32m=\033[m" * 30)
     print('\033[1;32mBem vindo a área de Login!\033[m')
     print("\033[1;32m=\033[m" * 30, '\n')
@@ -39,14 +37,14 @@ def Login():  # Função para fazer Login
     if email == 'q' or email == 'Q':
         fechaApp()
     elif email == 'r' or email == 'R':
-        Login()
+        login()
     elif email == 'v' or email == 'V':
         inicio()
     senha = input('Digite sua senha: ')
     if senha == 'q' and senha == 'Q':
         fechaApp()
     elif senha == 'r' or senha == 'R':
-        Login()
+        login()
     elif senha == 'v' or senha == 'V':
         inicio()
     elif email in dados.emails and senha in dados.senhas:
@@ -54,7 +52,7 @@ def Login():  # Função para fazer Login
         glicemiaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
-        Login()
+        login()
 
 
 def fazerCadastro():
@@ -97,7 +95,7 @@ def fazerCadastro():
             dados.senhas.append(senha_novo_verificada)
             print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
             print('\033[1;32mFaça Login agora!\033[m')
-            Login()
+            login()
     else:
         print('\033[1;31mTente novamente!\033[m\n')
         fazerCadastro()
@@ -122,10 +120,7 @@ def glicemiaApp():
     elif pergunta == '4':
         inicio()
     elif pergunta == '5':
-        print("\033[1;32m=\033[m" * 30)
-        print('\033[1;32mBem Vindo(a) as Configurações Avançadas\033[m')
-        print("\033[1;32m=\033[m" * 30, '\n')
-        configuracoes_avancadas.configsAvanc()
+        configs()
     elif pergunta == '6':
         fechaApp()
     else:
@@ -468,7 +463,43 @@ def verGrafico():
         verGrafico()  # Caso todas as verificações sejam falsas, o usuário digitou algo que não é válido!
 
 
+def configs():  # Configurações avançadas Function
+    print("\033[1;32m=\033[m" * 30)
+    print('\033[1;32mBem Vindo(a) as Configurações Avançadas\033[m')
+    print("\033[1;32m=\033[m" * 30, '\n')
+    escolha = input('O que você quer fazer?\n\n'
+                    'Alterar e-mail >>> 1\n'
+                    'Alterar senha >>> 2\n'
+                    'Apagar conta >> 3\n'
+                    'Voltar ao Menu Anterior >> 4\n'
+                    '>>> ')
+
+    if escolha == '1':
+        def alteraEmail():
+            email_atual = input('Digite seu e-mail atual: ')
+            if email_atual in dados.emails:
+                email_atualizado = input('Digite seu novo e-mail: ')
+                email_atualizado_valida = input('Novamente, digite seu novo e-mail: ')
+            else:
+                print(f'\nO e-mail: {email_atual} não está em nossas bases de dados, tente novamente.\n')
+                alteraEmail()
+            if email_atualizado == email_atualizado_valida and '@' and '.com' in email_atualizado:  # pergunta se o email tem @ e .com e se está válido
+                dados.emails.remove(email_atual)  # remove o email da base de dados
+                dados.emails.append(email_atualizado)  # e adiciona o novo email à base de dados
+                print('E-mail atualizado com sucesso!')
+                print('Sendo redirecionado para área de Login')
+                sleep(2)
+                login()
+            else:
+                print(f'\nO e-mail {email_atualizado} não é válido! Tente novamente.\n')
+                alteraEmail()
+        alteraEmail()  # Caso a opção seja 1 executará a função para alterar o email.
 
 
+def fechaApp():
+    print('Tudo bem! Muito obrigado!')
+    exit()
 
-inicio()
+
+if __name__ == '__main__':
+    inicio()
