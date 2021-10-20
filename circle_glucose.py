@@ -34,23 +34,23 @@ def login():  # Função para fazer login
 
     print('Digite "q" para sair, "r" para reiniciar ou "v" para voltar ao menu anterior')
     email = input('Coloque seu e-mail: ')
-    if email == 'q' or email == 'Q':
+    if email == 'q' or email == 'Q':  # se email for q, significa que o usuário que sair do software
         fechaApp()
-    elif email == 'r' or email == 'R':
+    elif email == 'r' or email == 'R':  # se for r, significa que a função será executada do 0
         login()
-    elif email == 'v' or email == 'V':
+    elif email == 'v' or email == 'V':  # se v, voltá ao menu anterior
         inicio()
     senha = input('Digite sua senha: ')
-    if senha == 'q' and senha == 'Q':
+    if senha == 'q' and senha == 'Q':  # se senha for q, significa que o usuário que sair do software
         fechaApp()
-    elif senha == 'r' or senha == 'R':
+    elif senha == 'r' or senha == 'R':  # se for r, significa que a função será executada do 0
         login()
-    elif senha == 'v' or senha == 'V':
+    elif senha == 'v' or senha == 'V':  # se v, voltá ao menu anterior
         inicio()
-    elif email in dados.emails and senha in dados.senhas:
+    elif email in dados.emails and senha in dados.senhas:  # se o email e a senha existir na base de dados, loga
         print('\n\033[1;92mParabéns! logado com sucesso!\033[m\n')
         glicemiaApp()
-    else:
+    else:  # senão, volta ao menu anterior
         print('\033[1;31mTente novamente!\033[m')
         login()
 
@@ -67,37 +67,38 @@ def fazerCadastro():
         fazerCadastro()
     elif email_novo == 'v' or email_novo == 'V':
         inicio()
+    elif email_novo and '@' and '.com' in email_novo:
 
-    senha_novo = input('Digite a sua senha: ')
+        senha_novo = input('Digite a sua senha: ')
 
-    if senha_novo == 'q' or senha_novo == 'Q':
-        fechaApp()
-    elif senha_novo == 'r' or senha_novo == 'R':
-        fazerCadastro()
-    elif senha_novo == 'v' or senha_novo == 'V':
-        inicio()
-
-    senha_novo_verificada = input('Digite a mesma senha: ')
-
-    if senha_novo_verificada == 'q' or senha_novo_verificada == 'Q':
-        fechaApp()
-    elif senha_novo_verificada == 'r' or senha_novo_verificada == 'R':
-        fazerCadastro()
-    elif senha_novo_verificada == 'v' or senha_novo_verificada == 'V':
-        inicio()
-
-    if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
-        if email_novo in dados.emails:
-            print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
+        if senha_novo == 'q' or senha_novo == 'Q':
+            fechaApp()
+        elif senha_novo == 'r' or senha_novo == 'R':
             fazerCadastro()
-        else:
-            dados.emails.append(email_novo)
-            dados.senhas.append(senha_novo_verificada)
-            print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
-            print('\033[1;32mFaça Login agora!\033[m')
-            login()
+        elif senha_novo == 'v' or senha_novo == 'V':
+            inicio()
+
+        senha_novo_verificada = input('Digite a mesma senha: ')
+
+        if senha_novo_verificada == 'q' or senha_novo_verificada == 'Q':
+            fechaApp()
+        elif senha_novo_verificada == 'r' or senha_novo_verificada == 'R':
+            fazerCadastro()
+        elif senha_novo_verificada == 'v' or senha_novo_verificada == 'V':
+            inicio()
+
+        if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
+            if email_novo in dados.emails:
+                print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
+                fazerCadastro()
+            else:
+                dados.emails.append(email_novo)
+                dados.senhas.append(senha_novo_verificada)
+                print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
+                print('\033[1;32mFaça Login agora!\033[m')
+                login()
     else:
-        print('\033[1;31mTente novamente!\033[m\n')
+        print('\033[1;31mE-mail inválido, tente novamente!\033[m\n')
         fazerCadastro()
 
 
