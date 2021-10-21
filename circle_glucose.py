@@ -328,16 +328,23 @@ def verMedidas():
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
-    elif escolha == 'a':
-        print(f'Mostrando glicemias de: Todos os periodos')
-        sleep(1)
-        for lista in dados.lista
+
     elif escolha == 'q':
         fechaApp()
     elif escolha == 'r':
         verMedidas()
     elif escolha == 'v':
         glicemiaApp()
+    elif escolha == 'a':
+        print(f'Mostrando glicemias de: Todos os periodos')
+        sleep(1)
+        for periodo, lista in dados.dicio_glicemia.items():
+            print(periodo)
+            if not lista:
+                print('Lista vazia\n')
+            else:
+                for glicemias in lista:
+                    print(glicemias, '\n')
     else:
         print('\033[1;31mTente novamente!\033[m')
         verMedidas()
