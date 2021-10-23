@@ -2,16 +2,16 @@
 
 ***Atualmente o programa está em fase inicial.***
 
-Software sendo criado para controlar a diabetes do usuário.
-Nele você poderá adicionar seus dados (glicemias), e
-com os tais dados, o software fará um gráfico para lhe 
-ajudar a controlar e acompanhar a sua diabete, seja Diabetes 
-tipo 1, tipo 2, gestacional ou pré-diabetes.
+“Software” sendo criado para controlar a glicemia do utilizador.
+Nele poderá adicionar os seus dados (glicemia), e
+com os tais dados, o “software” fará um gráfico para lhe 
+ajudar a controlar e acompanhar o seu diabetes, seja
+ tipo 1, tipo 2, gestacional ou pré-diabetes.
 
 ### Requisitos para utilização:
-Python 3
+**Python 3**
 
-Do `matplotlib` usa-se `pyplot`
+**Da biblioteca `matplotlib`, usa-se o `pyplot`**
 
 ### Como utilizar?
 
@@ -23,7 +23,7 @@ Do `matplotlib` usa-se `pyplot`
 `python circle_glucose.py` (Windows)
 
 *Nota: Caso queira utilizar o programa, utilizando a função Login,
-abaixo estará os "dados" para utilizar:*
+abaixo estará os "dados" para utilizar o ‘software’.*
 
 **E-mail:** `admin@.com`
 
@@ -31,6 +31,8 @@ abaixo estará os "dados" para utilizar:*
 
 
 ##Atenção!
+
+
 ***O programa não tem banco de dados ainda! Por isso, o programa faz 
 atualmente todo o processo utilizando listas em Python, que apaga
 todos os dados em caso de uma reinicialização do programa!***
