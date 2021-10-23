@@ -30,7 +30,7 @@ abaixo estará os "dados" para utilizar:*
 **Senha:** `admin`
 
 
-##Alerta!
+##Atenção!
 ***O programa não tem banco de dados ainda! Por isso, o programa faz 
 atualmente todo o processo utilizando listas em Python, que apaga
 todos os dados em caso de uma reinicialização do programa!***
