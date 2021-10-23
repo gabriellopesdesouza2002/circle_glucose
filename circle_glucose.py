@@ -2,9 +2,7 @@ from time import sleep, gmtime, strftime
 
 from matplotlib import pyplot
 
-import dados  # impota as listas simulando um db (Que some ao iniciar novamente o )
-
-#para mostrar todos os valores, mostra todas as listas usando um for#
+import dados  # impota as listas simulando um db (Que limpa ao reiniciar o programa)
 
 
 def inicio():  # Função que inicia o aplicativo
@@ -21,6 +19,7 @@ def inicio():  # Função que inicia o aplicativo
         fechaApp()
     else:  # Se tudo falso, tenta novamente
         print('\033[1;31mTente novamente!\033[m')
+        sleep(1)
         inicio()
 
 
@@ -35,20 +34,21 @@ def login():  # Função para fazer login
         fechaApp()
     elif email == 'r' or email == 'R':  # se for r, significa que a função será executada do 0
         login()
-    elif email == 'v' or email == 'V':  # se v, voltá ao menu anterior
+    elif email == 'v' or email == 'V':  # se v, volta ao menu anterior
         inicio()
     senha = input('Digite sua senha: ')
     if senha == 'q' and senha == 'Q':  # se senha for q, significa que o usuário que sair do software
         fechaApp()
     elif senha == 'r' or senha == 'R':  # se for r, significa que a função será executada do 0
         login()
-    elif senha == 'v' or senha == 'V':  # se v, voltá ao menu anterior
+    elif senha == 'v' or senha == 'V':  # se v, volta ao menu anterior
         inicio()
     elif email in dados.emails and senha in dados.senhas:  # se o email e a senha existir na base de dados, loga
         print('\n\033[1;92mParabéns! logado com sucesso!\033[m\n')
         glicemiaApp()
     else:  # senão, volta ao menu anterior
         print('\033[1;31mTente novamente!\033[m')
+        sleep(1)
         login()
 
 
@@ -87,6 +87,7 @@ def fazerCadastro():
         if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
             if email_novo in dados.emails:
                 print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
+                sleep(1)
                 fazerCadastro()
             else:
                 dados.emails.append(email_novo)
@@ -96,6 +97,7 @@ def fazerCadastro():
                 login()
     else:
         print('\033[1;31mE-mail inválido, tente novamente!\033[m\n')
+        sleep(1)
         fazerCadastro()
 
 
@@ -123,6 +125,7 @@ def glicemiaApp():
         fechaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
+        sleep(1)
         glicemiaApp()
 
 
@@ -138,7 +141,7 @@ def addValor():
         inicio()
     elif adicionar_glicemia.isnumeric():
         adicionar_glicemia = int(adicionar_glicemia)
-        if adicionar_glicemia >= 10 and adicionar_glicemia <= 600:
+        if adicionar_glicemia >= 10 and adicionar_glicemia <= 925:  # Está desta forma para melhor compreensão
             periodo = input('Qual periodo foi feito a medição?\n'
                             'Ao levantar ➜ 1\n'
                             'Antes do almoço ➜ 2\n'
@@ -206,9 +209,11 @@ def addValor():
                 glicemiaApp()
         else:
             print(f'\033[1;31mO valor: {adicionar_glicemia} é inválido. Tente novamente!\033[m')
+            sleep(1)
             addValor()
     else:
         print(f'\033[1;31mO valor: {adicionar_glicemia} é inválido. Tente novamente!\033[m')
+        sleep(1)
         addValor()
 
 
@@ -341,12 +346,17 @@ def verMedidas():
         for periodo, lista in dados.dicio_glicemia.items():
             print(periodo)
             if not lista:
-                print('Lista vazia\n')
+                print('\tLista vazia\n')
             else:
                 for glicemias in lista:
-                    print(glicemias, '\n')
+                    print(f'\t{glicemias}')
+        else:
+            print('Voltando para o menu inicial...\n')
+            sleep(2)
+            glicemiaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
+        sleep(1)
         verMedidas()
 
 
@@ -464,6 +474,7 @@ def verGrafico():
         glicemiaApp()  # Caso escolha seja "v" ou "V" volatará um menu (função) anterior
     else:
         print('\033[1;31mTente novamente!\033[m')
+        sleep(1)
         verGrafico()  # Caso todas as verificações sejam falsas, o usuário digitou algo que não é válido!
 
 
@@ -479,22 +490,23 @@ def configs():  # Configurações avançadas Function
                     '>>> ')
 
     if escolha == '1':
-        def escolha1func():
+        def altera_email():
             print('Você escolheu ALTERAR E-MAIL.\n'
                   'ATENÇÃO: Ao fazer a alteração de e-mail, você será redirecionado para a área de login!\n')
             volta = input('Se deseja voltar tecle "v" ou "c" para continuar.\n'
                           '>>> ')
             if volta == 'v' or volta == 'V':
                 configs()
-            elif volta == 'c':
-                def alteraEmail():
+            elif volta == 'c':  # continuará caso o usuário
+                def cont_alter():
                     email_atual = input('Digite seu e-mail atual: ')
                     if email_atual in dados.emails:
                         email_atualizado = input('Digite seu novo e-mail: ')
                         email_atualizado_valida = input('Novamente, digite seu novo e-mail: ')
                     else:
                         print(f'\nO e-mail: {email_atual} não está em nossas bases de dados, tente novamente.\n')
-                        alteraEmail()
+                        sleep(1)
+                        cont_alter()
                     if email_atualizado == email_atualizado_valida and '@' and '.com' in email_atualizado:  # pergunta se o email tem @ e .com e se está válido
                         dados.emails.remove(email_atual)  # remove o email da base de dados
                         dados.emails.append(email_atualizado)  # e adiciona o novo email à base de dados
@@ -504,33 +516,86 @@ def configs():  # Configurações avançadas Function
                         login()
                     else:
                         print(f'\nO e-mail "{email_atualizado}" não é válido! Tente novamente.\n')
-                        alteraEmail()
+                        sleep(1)
+                        cont_alter()
 
-                alteraEmail()  # Caso a opção seja 1 executará a função para alterar o email.
+                cont_alter()
             else:
                 print('Algo deu errado, tente novamente!\n')
-                escolha1func()
-        escolha1func()
+                sleep(1)
+                altera_email()
+        altera_email()  # executa a alteração de e-mail
+
     elif escolha == '2':
-        print('Você escolheu ALTERAR SENHA.\n')
-
         def altera_senha():
-            senha_atual = input('Digite sua senha atual: ')
-            if senha_atual in dados.senhas:
-                nova_senha = input('Digite a sua nova senha: ')
-                nova_senha_varifica = input('Digite novamente a sua nova senha: ')
-                if nova_senha == nova_senha_varifica:
-                    dados.senhas.remove(senha_atual)
-                    dados.senhas.append(nova_senha)
-                    ...
-
+            print('Você escolheu ALTERAR SENHA.\n'
+                  'ATENÇÃO: Ao fazer a alteração de senha, você será redirecionado para a área de login!\n')
+            volta = input('Se deseja voltar tecle "v" ou "c" para continuar.\n'
+                          '>>> ')
+            if volta == 'v' or volta == 'V':
+                configs()
+            elif volta == 'c' or volta == 'C':
+                def cont_alter():
+                    senha_atual = input('Digite sua senha atual: ')
+                    if senha_atual in dados.senhas:
+                        nova_senha = input('Digite a sua nova senha: ')
+                        nova_senha_varifica = input('Digite novamente a sua nova senha: ')
+                        if nova_senha == nova_senha_varifica:
+                            def confim_alter():
+                                confirma = input(f'\nComfirme a alteração da senha de:\n'
+                                                 f'{senha_atual} para {nova_senha}\n'
+                                                 f'(S) Para comfirmar a alteração\n'
+                                                 f'(N) Para alterar a nova senha.\n'
+                                                 f'>>> ')
+                                if confirma == 'S' or confirma == 's':
+                                    print('Ok, alterando dados.')
+                                    sleep(1)
+                                    print(f'Removendo senha: "{senha_atual}"...')
+                                    dados.senhas.remove(senha_atual)
+                                    sleep(1)
+                                    print(f'Adicionando senha: "{nova_senha}" ao banco de dados...')
+                                    sleep(1)
+                                    dados.senhas.append(nova_senha)
+                                    print('Pronto, sua senha foi alterada com sucesso!\n\n'
+                                          'Indo para o login.\n')
+                                    login()
+                                elif confirma == 'n' or confirma == 'N':
+                                    print('Ok, voltando...')
+                                    sleep(1)
+                                    cont_alter()
+                                else:
+                                    print('Algo deu errado, tente novamente!')
+                                    sleep(1)
+                                    confim_alter()
+                            confim_alter()
+                        else:
+                            print(f'As senhas não combinam. Tente novamente!')
+                            sleep(1)
+                            cont_alter()
+                    else:
+                        print(f'A senha que você digitou ({senha_atual}) é inválida. Tente novamente!')
+                        sleep(1)
+                        cont_alter()
+                cont_alter()
+            else:
+                print('Algo deu errado, Tente novamente')
+                sleep(1)
         altera_senha()
+    else:
+        print('Algo deu errado! Tente novamente.')
+        sleep(1)
+        configs()
 
 
 def fechaApp():
     print('Tudo bem! Muito obrigado!')
+    sleep(1)
+    print('Saindo...')
+    sleep(2)
     exit()
 
 
 if __name__ == '__main__':
     inicio()
+
+# Adicionar uma forma de mostrar a média da glicemia
