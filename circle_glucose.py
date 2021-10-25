@@ -65,36 +65,37 @@ def fazerCadastro():
     elif email_novo == 'v' or email_novo == 'V':
         inicio()
     elif email_novo and '@' and '.com' in email_novo:
-
         senha_novo = input('Digite a sua senha: ')
-
         if senha_novo == 'q' or senha_novo == 'Q':
             fechaApp()
         elif senha_novo == 'r' or senha_novo == 'R':
             fazerCadastro()
         elif senha_novo == 'v' or senha_novo == 'V':
             inicio()
-
-        senha_novo_verificada = input('Digite a mesma senha: ')
-
-        if senha_novo_verificada == 'q' or senha_novo_verificada == 'Q':
-            fechaApp()
-        elif senha_novo_verificada == 'r' or senha_novo_verificada == 'R':
-            fazerCadastro()
-        elif senha_novo_verificada == 'v' or senha_novo_verificada == 'V':
-            inicio()
-
-        if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
-            if email_novo in dados.emails:
-                print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
-                sleep(1)
+        else:
+            senha_novo_verificada = input('Digite a mesma senha: ')
+            if senha_novo_verificada == 'q' or senha_novo_verificada == 'Q':
+                fechaApp()
+            elif senha_novo_verificada == 'r' or senha_novo_verificada == 'R':
                 fazerCadastro()
+            elif senha_novo_verificada == 'v' or senha_novo_verificada == 'V':
+                inicio()
             else:
-                dados.emails.append(email_novo)
-                dados.senhas.append(senha_novo_verificada)
-                print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
-                print('\033[1;32mFaça Login agora!\033[m')
-                login()
+                if senha_novo == senha_novo_verificada and len(senha_novo_verificada) >= 3:
+                    if email_novo in dados.emails:
+                        print('\n\033[1;31mO email já existe no nosso banco de dados! Tente novamente.\033[m\n')
+                        sleep(1)
+                        fazerCadastro()
+                    else:
+                        dados.emails.append(email_novo)
+                        dados.senhas.append(senha_novo_verificada)
+                        print('\033[1;32mCadastro realizado com sucesso!\033[m\n')
+                        print('\033[1;32mFaça Login agora!\033[m')
+                        login()
+                else:
+                    print('As senhas não combinam ou a senha é menor que 4 caracteres!')
+                    fazerCadastro()
+
     else:
         print('\033[1;31mE-mail inválido, tente novamente!\033[m\n')
         sleep(1)
@@ -106,9 +107,10 @@ def glicemiaApp():
                      'Adicionar um novo valor >>> 1\n'
                      'Ver suas medidas >>> 2\n'
                      'Ver um gráfico com as medidas >> 3\n'
-                     'Fazer Logoff (Login / Cadastro) >>> 4\n'
-                     'Configurações avançadas >>> 5\n'
-                     'Sair >>> 6\n'
+                     'Ver a média de suas medidas >> 4\n'
+                     'Fazer Logoff (Login / Cadastro) >>> 5\n'
+                     'Configurações avançadas >>> 6\n'
+                     'Sair >>> 7\n'
                      '>>> ')
 
     if pergunta == '1':
@@ -118,10 +120,12 @@ def glicemiaApp():
     elif pergunta == '3':
         verGrafico()
     elif pergunta == '4':
-        inicio()
+        verMedia()
     elif pergunta == '5':
-        configs()
+        inicio()
     elif pergunta == '6':
+        configs()
+    elif pergunta == '7':
         fechaApp()
     else:
         print('\033[1;31mTente novamente!\033[m')
@@ -138,81 +142,87 @@ def addValor():
     elif adicionar_glicemia == 'r' or adicionar_glicemia == 'R':
         addValor()
     elif adicionar_glicemia == 'v' or adicionar_glicemia == 'V':
-        inicio()
+        glicemiaApp()
     elif adicionar_glicemia.isnumeric():
-        adicionar_glicemia = int(adicionar_glicemia)
+        adicionar_glicemia = int(adicionar_glicemia)  # tranforma o valor de glicemia para nuúero inteiro
         if adicionar_glicemia >= 10 and adicionar_glicemia <= 925:  # Está desta forma para melhor compreensão
-            periodo = input('Qual periodo foi feito a medição?\n'
-                            'Ao levantar ➜ 1\n'
-                            'Antes do almoço ➜ 2\n'
-                            'Depois do almoço ➜ 3\n'
-                            'Antes do lanche ➜ 4\n'
-                            'Depois do lanche ➜ 5\n'
-                            'Antes do jantar ➜ 6\n'
-                            'Depois do jantar ➜ 7\n'
-                            'Ao dormir ➜ 8\n'
-                            'Sem Período Especificado ➜ 9\n'
-                            '>>> ')
-            if periodo == '1':
-                print('Você escolheu "Ao levantar"\n')
-                sleep(1)
-                dados.glicemias_01.append(adicionar_glicemia)
-                dados.glicemias_01_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '2':
-                print('Você escolheu "Antes do almoço"\n')
-                sleep(1)
-                dados.glicemias_02.append(adicionar_glicemia)
-                dados.glicemias_02_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '3':
-                print('Você escolheu "Depois do almoço"\n')
-                sleep(1)
-                dados.glicemias_03.append(adicionar_glicemia)
-                dados.glicemias_03_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '4':
-                print('Você escolheu "Antes do lanche"\n')
-                sleep(1)
-                dados.glicemias_04.append(adicionar_glicemia)
-                dados.glicemias_04_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '5':
-                print('Você escolheu "Depois do lanche"\n')
-                sleep(1)
-                dados.glicemias_05.append(adicionar_glicemia)
-                dados.glicemias_05_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '6':
-                print('Você escolheu "Antes do jantar"\n')
-                sleep(1)
-                dados.glicemias_06.append(adicionar_glicemia)
-                dados.glicemias_06_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '7':
-                print('Você escolheu "Depois do jantar"\n')
-                sleep(1)
-                dados.glicemias_07.append(adicionar_glicemia)
-                dados.glicemias_07_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '8':
-                print('Você escolheu "Ao dormir"\n')
-                sleep(1)
-                dados.glicemias_08.append(adicionar_glicemia)
-                dados.glicemias_08_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
-            elif periodo == '9':
-                print('Você escolheu "Sem Período Especificado"\n')
-                sleep(1)
-                dados.glicemias_09.append(adicionar_glicemia)
-                dados.glicemias_09_hora.append(strftime("%d | %H:%M:%S", gmtime()))
-                glicemiaApp()
+            def escolhe_periodo():
+                periodo = input('Qual periodo foi feito a medição?\n'
+                                'Ao levantar ➜ 1\n'
+                                'Antes do almoço ➜ 2\n'
+                                'Depois do almoço ➜ 3\n'
+                                'Antes do lanche ➜ 4\n'
+                                'Depois do lanche ➜ 5\n'
+                                'Antes do jantar ➜ 6\n'
+                                'Depois do jantar ➜ 7\n'
+                                'Ao dormir ➜ 8\n'
+                                'Sem Período Especificado ➜ 9\n'
+                                '>>> ')
+                if periodo == '1':
+                    print('Você escolheu "Ao levantar"\n')
+                    sleep(1)
+                    dados.glicemias_01.append(adicionar_glicemia)
+                    dados.glicemias_01_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '2':
+                    print('Você escolheu "Antes do almoço"\n')
+                    sleep(1)
+                    dados.glicemias_02.append(adicionar_glicemia)
+                    dados.glicemias_02_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '3':
+                    print('Você escolheu "Depois do almoço"\n')
+                    sleep(1)
+                    dados.glicemias_03.append(adicionar_glicemia)
+                    dados.glicemias_03_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '4':
+                    print('Você escolheu "Antes do lanche"\n')
+                    sleep(1)
+                    dados.glicemias_04.append(adicionar_glicemia)
+                    dados.glicemias_04_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '5':
+                    print('Você escolheu "Depois do lanche"\n')
+                    sleep(1)
+                    dados.glicemias_05.append(adicionar_glicemia)
+                    dados.glicemias_05_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '6':
+                    print('Você escolheu "Antes do jantar"\n')
+                    sleep(1)
+                    dados.glicemias_06.append(adicionar_glicemia)
+                    dados.glicemias_06_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '7':
+                    print('Você escolheu "Depois do jantar"\n')
+                    sleep(1)
+                    dados.glicemias_07.append(adicionar_glicemia)
+                    dados.glicemias_07_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '8':
+                    print('Você escolheu "Ao dormir"\n')
+                    sleep(1)
+                    dados.glicemias_08.append(adicionar_glicemia)
+                    dados.glicemias_08_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                elif periodo == '9':
+                    print('Você escolheu "Sem Período Especificado"\n')
+                    sleep(1)
+                    dados.glicemias_09.append(adicionar_glicemia)
+                    dados.glicemias_09_hora.append(strftime("%d | %H:%M:%S", gmtime()))
+                    glicemiaApp()
+                else:
+                    print(f'\033[1;31mO periodo especificado, não é válido, tente novamente!\033[m')
+                    sleep(1)
+                    escolhe_periodo()
+            escolhe_periodo()
         else:
-            print(f'\033[1;31mO valor: {adicionar_glicemia} é inválido. Tente novamente!\033[m')
+            print(f'\033[1;31mO valor: ({adicionar_glicemia}) é inválido! Tente novamente!\033[m')
             sleep(1)
             addValor()
     else:
-        print(f'\033[1;31mO valor: {adicionar_glicemia} é inválido. Tente novamente!\033[m')
+        print(f'\033[1;31mO valor: ({adicionar_glicemia}) é inválido. Tente novamente!\033[m')
         sleep(1)
         addValor()
 
@@ -230,11 +240,14 @@ def verMedidas():
                     'Ao dormir ➜ 8\n'
                     'Sem Período Especificado ➜ 9\n'
                     'Ver todas as medidas ➜ "a"\n'
-                    'Sair ➜ "q"\n'
-                    'Reiniciar esse menu ➜ "r"\n'
-                    'Voltar ao menu anterior ➜ "v"\n'
                     '>>> ')
-    if escolha == '1':
+    if escolha == 'q':
+        fechaApp()
+    elif escolha == 'r':
+        verMedidas()
+    elif escolha == 'v':
+        glicemiaApp()
+    elif escolha == '1':
         print(f'Mostrando glicemias do período: "Ao levantar"')
         sleep(1)
         if not dados.glicemias_01:
@@ -333,20 +346,13 @@ def verMedidas():
                 print(glicemia, '\n')
             else:
                 glicemiaApp()
-
-    elif escolha == 'q':
-        fechaApp()
-    elif escolha == 'r':
-        verMedidas()
-    elif escolha == 'v':
-        glicemiaApp()
     elif escolha == 'a':
-        print(f'Mostrando glicemias de: Todos os periodos')
+        print(f'Mostrando glicemias de: Todos os periodos.')
         sleep(1)
         for periodo, lista in dados.dicio_glicemia.items():
             print(periodo)
             if not lista:
-                print('\tLista vazia\n')
+                print('\tSem valores atualmente...\n')
             else:
                 for glicemias in lista:
                     print(f'\t{glicemias}')
@@ -476,6 +482,64 @@ def verGrafico():
         print('\033[1;31mTente novamente!\033[m')
         sleep(1)
         verGrafico()  # Caso todas as verificações sejam falsas, o usuário digitou algo que não é válido!
+
+
+def verMedia():
+    print('\033[1;32m=\033[m' * 30)
+    print('\033[1;32mVer médias das suas medidas\033[m')
+    print('\033[1;32m=\033[m' * 30, '\n')
+    escolha = input('De qual periodo você quer ver a média?\n\n'
+                    'Ao levantar ➜ 1\n'
+                    'Antes do almoço ➜ 2\n'
+                    'Depois do almoço ➜ 3\n'
+                    'Antes do lanche ➜ 4\n'
+                    'Depois do lanche ➜ 5\n'
+                    'Antes do jantar ➜ 6\n'
+                    'Depois do jantar ➜ 7\n'
+                    'Ao dormir ➜ 8\n'
+                    'Sem Período Especificado ➜ 9\n'
+                    'Sair ➜ "q"\n'
+                    'Reiniciar esse menu ➜ "r"\n'
+                    'Voltar ao menu anterior ➜ "v"\n'
+                    '>>> ')
+    if escolha == '1':
+        print('Você escolheu "Ao levantar".')
+        if not dados.glicemias_01:
+            print('Ainda não há dados...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_01:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_01)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Ao levantar" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '2':
+        print('Você escolheu "Antes do almoço".')
+        if not dados.glicemias_02:
+            print('Ainda não há dados...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_02:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_02)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Antes do almoço" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
 
 
 def configs():  # Configurações avançadas Function
