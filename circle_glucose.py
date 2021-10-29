@@ -2,7 +2,7 @@ from time import sleep, gmtime, strftime
 
 from matplotlib import pyplot
 
-import dados  # impota as listas simulando um db (Que limpa ao reiniciar o programa)
+import dados  # importa as listas simulando um db (Que limpa ao reiniciar o programa)
 
 
 def inicio():  # Função que inicia o aplicativo
@@ -43,8 +43,8 @@ def login():  # Função para fazer login
         login()
     elif senha == 'v' or senha == 'V':  # se v, volta ao menu anterior
         inicio()
-    elif email in dados.emails and senha in dados.senhas:  # se o email e a senha existir na base de dados, loga
-        print('\n\033[1;92mParabéns! logado com sucesso!\033[m\n')
+    elif email in dados.emails and senha in dados.senhas:  # se o email e a senha existir na base de dados, entra
+        print('\n\033[1;92mParabéns! conectado com sucesso!\033[m\n')
         glicemiaApp()
     else:  # senão, volta ao menu anterior
         print('\033[1;31mTente novamente!\033[m')
@@ -144,10 +144,10 @@ def addValor():
     elif adicionar_glicemia == 'v' or adicionar_glicemia == 'V':
         glicemiaApp()
     elif adicionar_glicemia.isnumeric():
-        adicionar_glicemia = int(adicionar_glicemia)  # tranforma o valor de glicemia para nuúero inteiro
-        if adicionar_glicemia >= 10 and adicionar_glicemia <= 925:  # Está desta forma para melhor compreensão
-            def escolhe_periodo():
-                periodo = input('Qual periodo foi feito a medição?\n'
+        adicionar_glicemia = int(adicionar_glicemia)  # transforma o valor de glicemia para número inteiro
+        if 10 <= adicionar_glicemia <= 925:  # Verifica se a glicemia está entre 10 e 925
+            def escolhe_periodo():  # função add para não fazer o usuário colocar novamente a glicemia em caso de erro
+                periodo = input('Qual período foi feito a medição?\n'
                                 'Ao levantar ➜ 1\n'
                                 'Antes do almoço ➜ 2\n'
                                 'Depois do almoço ➜ 3\n'
@@ -347,7 +347,7 @@ def verMedidas():
             else:
                 glicemiaApp()
     elif escolha == 'a':
-        print(f'Mostrando glicemias de: Todos os periodos.')
+        print(f'Mostrando glicemias de: Todos os períodos.')
         sleep(1)
         for periodo, lista in dados.dicio_glicemia.items():
             print(periodo)
@@ -477,7 +477,7 @@ def verGrafico():
     elif escolha == 'r' or escolha == 'R':
         verGrafico()  # Caso escolha seja "r" ou "R" reiniciará a função do zero
     elif escolha == 'v' or escolha == 'V':
-        glicemiaApp()  # Caso escolha seja "v" ou "V" volatará um menu (função) anterior
+        glicemiaApp()  # Caso escolha seja "v" ou "V" voltará um menu (função) anterior
     else:
         print('\033[1;31mTente novamente!\033[m')
         sleep(1)
@@ -488,6 +488,7 @@ def verMedia():
     print('\033[1;32m=\033[m' * 30)
     print('\033[1;32mVer médias das suas medidas\033[m')
     print('\033[1;32m=\033[m' * 30, '\n')
+
     escolha = input('De qual periodo você quer ver a média?\n\n'
                     'Ao levantar ➜ 1\n'
                     'Antes do almoço ➜ 2\n'
@@ -504,8 +505,8 @@ def verMedia():
                     '>>> ')
     if escolha == '1':
         print('Você escolheu "Ao levantar".')
-        if not dados.glicemias_01:
-            print('Ainda não há dados...\n')
+        if not dados.glicemias_01 or len(dados.glicemias_01) < 2:
+            print(f'Ainda há {len(dados.glicemias_01)} glicemias atualmente...\n')
             sleep(1)
             print('Voltando...')
             sleep(1)
@@ -523,8 +524,8 @@ def verMedia():
                 glicemiaApp()
     elif escolha == '2':
         print('Você escolheu "Antes do almoço".')
-        if not dados.glicemias_02:
-            print('Ainda não há dados...\n')
+        if not dados.glicemias_02 or len(dados.glicemias_02) < 2:
+            print(f'Ainda há {len(dados.glicemias_02)} glicemias atualmente...\n')
             sleep(1)
             print('Voltando...')
             sleep(1)
@@ -540,6 +541,169 @@ def verMedia():
                 print(f'Voltando para o menu principal...')
                 sleep(1)
                 glicemiaApp()
+    elif escolha == '3':
+        print('Você escolheu "Depois do almoço".')
+        if not dados.glicemias_03 or len(dados.glicemias_03) < 2:
+            print(f'Ainda há {len(dados.glicemias_03)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_03:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_03)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Depois do almoço" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '4':
+        print('Você escolheu "Antes do lanche".')
+        if not dados.glicemias_04 or len(dados.glicemias_04) < 2:
+            print(f'Ainda há {len(dados.glicemias_04)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_04:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_04)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Antes do lanche" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '5':
+        print('Você escolheu "Depois do lanche".')
+        if not dados.glicemias_05 or len(dados.glicemias_05) < 2:
+            print(f'Ainda há {len(dados.glicemias_05)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_05:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_05)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Depois do lanche" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '5':
+        print('Você escolheu "Depois do lanche".')
+        if not dados.glicemias_05 or len(dados.glicemias_05) < 2:
+            print(f'Ainda há {len(dados.glicemias_05)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_05:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_05)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Depois do lanche" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '6':
+        print('Você escolheu "Antes do jantar".')
+        if not dados.glicemias_06 or len(dados.glicemias_06) < 2:
+            print(f'Ainda há {len(dados.glicemias_06)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_06:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_06)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Antes do jantar" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '7':
+        print('Você escolheu "Depois do jantar".')
+        if not dados.glicemias_07 or len(dados.glicemias_07) < 2:
+            print(f'Ainda há {len(dados.glicemias_07)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_07:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_07)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Depois do jantar" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '8':
+        print('Você escolheu "Ao dormir".')
+        if not dados.glicemias_08 or len(dados.glicemias_08) < 2:
+            print(f'Ainda há {len(dados.glicemias_08)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_08:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_08)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Ao dormir" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == '9':
+        print('Você escolheu "Sem Período Especificado".')
+        if not dados.glicemias_09 or len(dados.glicemias_09) < 2:
+            print(f'Ainda há {len(dados.glicemias_08)} glicemias atualmente...\n')
+            sleep(1)
+            print('Voltando...')
+            sleep(1)
+            verMedia()
+        else:
+            soma = 0
+            for glicemia in dados.glicemias_09:
+                soma += glicemia  # soma os valores das glicemias que estão na lista
+            else:
+                media = soma / len(dados.glicemias_09)  # faz a equação para fazer a média
+                print(f'A sua média no periodo de "Sem Período Especificado" é {media:.0f}')
+                sleep(1)
+                print(f'Voltando para o menu principal...')
+                sleep(1)
+                glicemiaApp()
+    elif escolha == 'q' or escolha == 'Q':
+        fechaApp()
+    elif escolha == 'r' or escolha == 'R':
+        verMedia()
+    elif escolha == 'v' or escolha == 'V':
+        glicemiaApp()
+
+    else:
+        print('Algo deu errado, tente novamente!')
+        sleep(1)
+        verMedia()
 
 
 def configs():  # Configurações avançadas Function
@@ -571,7 +735,8 @@ def configs():  # Configurações avançadas Function
                         print(f'\nO e-mail: {email_atual} não está em nossas bases de dados, tente novamente.\n')
                         sleep(1)
                         cont_alter()
-                    if email_atualizado == email_atualizado_valida and '@' and '.com' in email_atualizado:  # pergunta se o email tem @ e .com e se está válido
+                    # Abaixo pergunta se o email tem @ e .com e se está válido
+                    if email_atualizado == email_atualizado_valida and '@' and '.com' in email_atualizado:
                         dados.emails.remove(email_atual)  # remove o email da base de dados
                         dados.emails.append(email_atualizado)  # e adiciona o novo email à base de dados
                         print('E-mail atualizado com sucesso!\n\n'
@@ -606,9 +771,9 @@ def configs():  # Configurações avançadas Function
                         nova_senha_varifica = input('Digite novamente a sua nova senha: ')
                         if nova_senha == nova_senha_varifica:
                             def confim_alter():
-                                confirma = input(f'\nComfirme a alteração da senha de:\n'
+                                confirma = input(f'\nConfirme a alteração da senha de:\n'
                                                  f'{senha_atual} para {nova_senha}\n'
-                                                 f'(S) Para comfirmar a alteração\n'
+                                                 f'(S) Para confirmar a alteração\n'
                                                  f'(N) Para alterar a nova senha.\n'
                                                  f'>>> ')
                                 if confirma == 'S' or confirma == 's':
